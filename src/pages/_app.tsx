@@ -2,7 +2,9 @@ import '../styles/global.scss'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <div className="theme theme--dark">
+      <Component {...pageProps} />
+    </div>
   );
 }
 
