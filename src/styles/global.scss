@@ -1,3 +1,5 @@
+@import './components/Button';
+
 * {
   margin: 0;
   padding: 0;
@@ -15,13 +17,18 @@
   &--dark {
     --background: #121212;
     --text: rgba(255, 255, 255, 0.67);
-    --title: rgba(255, 255, 255, 0.77);
+    --title: rgba(255, 255, 255, 0.87);
     --lowEmphasis: rgba(255, 255, 255, 0.37);
     --onBackgroundLowEmphasis: rgba(255, 255, 255, 0.08);
     --onBackground: rgba(255, 255, 255, 0.1);
     --boxShadow: none;
     --countdownDivider: #121212;
     --gray-line: rgba(255, 255, 255, 0.3);
+    --disabled: rgba(255, 255, 255, 0.37);
+
+    button {
+      @extend %buttonOutline;
+    }
   }
 
   &--light {
@@ -33,6 +40,11 @@
     --boxShadow: 0 0 60px rgba(0, 0, 0, 0.05);
     --countdownDivider: #f0f1f3;
     --gray-line: #dcdde0;
+    --disabled: #fff;
+
+    button {
+      @extend %buttonSolid;
+    }
   }
 
   background: var(--background);

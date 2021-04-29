@@ -1,0 +1,106 @@
+button {
+  &.solid {
+    @extend %buttonSolid;
+  }
+  &.outline {
+    @extend %buttonOutline;
+  }
+}
+
+@mixin buttonOutlineHover($color, $colorOnHover: brightness($color, 0.9)) {
+  color: $color;
+  border-color: $color;
+  &:hover {
+    color: white;
+    background: $color;
+  }
+}
+
+%buttonSolid {
+  @extend %buttonBase;
+  border: 0;
+  color: var(--title);
+  background: var(--onBackground);
+
+  &.primary {
+    color: #fff;
+    transition: background 0.2s;
+    background: var(--blue);
+    &:hover {
+      background: var(--blue-dark);
+    }
+  }
+
+  &.danger {
+    color: #fff;
+    transition: filter 0.2s;
+    background: var(--red);
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.sucess {
+    color: #fff;
+    transition: filter 0.2s;
+    background: var(--green);
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: var(--disabled);
+    color: var(--text);
+  }
+}
+
+%buttonOutline {
+  @extend %buttonBase;
+  color: var(--title);
+  border: 3px solid currentColor;
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+
+  &.primary {
+    @include buttonOutlineHover(var(--blue));
+  }
+
+  &.danger {
+    @include buttonOutlineHover(var(--red));
+  }
+
+  &.sucess {
+    @include buttonOutlineHover(var(--green));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--disabled);
+  }
+}
+
+%buttonBase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  &.small {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  &.normal {
+    font-size: 1.25rem;
+  }
+
+  &.huge {
+    height: 5rem;
+    font-size: 1.25rem;
+  }
+}

@@ -73,29 +73,29 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 
-    button {
-      height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 5px;
-      color: var(--onBackground);
-      font-size: 1rem;
-      font-weight: 600;
-      transition: filter 0.2s;
+    // button {
+    //   height: 3rem;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   border: 0;
+    //   border-radius: 5px;
+    //   color: var(--onBackground);
+    //   font-size: 1rem;
+    //   font-weight: 600;
+    //   transition: filter 0.2s;
 
-      &:hover {
-        filter: brightness(0.9);
-      }
+    //   &:hover {
+    //     filter: brightness(0.9);
+    //   }
 
-      &.challengeFailedButton {
-        background-color: var(--red);
-      }
+    //   &.challengeFailedButton {
+    //     background-color: var(--red);
+    //   }
 
-      &.challengeSucceededButton {
-        background-color: var(--green);
-      }
-    }
+    //   &.challengeSucceededButton {
+    //     background-color: var(--green);
+    //   }
+    // }
   }
 }
