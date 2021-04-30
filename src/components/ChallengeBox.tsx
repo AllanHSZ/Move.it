@@ -38,7 +38,7 @@ export function ChallengeBox() {
             <Button
               color="sucess"
               size="small"
-              onClick={handleChallengeFailed}>
+              onClick={handleChallengeSuceeded}>
               Completei
             </Button>
           </footer>
