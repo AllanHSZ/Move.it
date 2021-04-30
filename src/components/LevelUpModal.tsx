@@ -1,6 +1,8 @@
 import { useContext } from 'react';
+import { FaTimes } from "react-icons/fa";
 import { ChallengesContext } from '../contexts/ChallengesContext';
 import styles from '../styles/components/LevelUpModal.module.scss';
+import { Button } from './Button';
 
 export function LevelUpModal() {
   const { level, closeLevelUpModal } = useContext(ChallengesContext);
@@ -12,9 +14,11 @@ export function LevelUpModal() {
         <strong>Parabéns</strong>
         <p>Você alcançou um novo level.</p>
 
-        <button type="button" onClick={closeLevelUpModal}>
-          <img src="/icons/close.svg" alt="Fechar modal"/>
-        </button>
+        <Button 
+          type="icon"
+          onClick={closeLevelUpModal}>
+          <FaTimes />
+        </Button>
       </div>
     </div>
   );

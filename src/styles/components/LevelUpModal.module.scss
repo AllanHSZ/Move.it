@@ -1,5 +1,5 @@
 .overlay {
-  background: rgba(242, 243, 245, 0.8);
+  background: var(--scrim);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10,11 +10,11 @@
   align-items: center;
 
   .container {
-    background: var(--onBackground);
+    background: var(--modalBackground);
     width: 100%;
     max-width: 400px;
     padding: 2rem 3rem;
-    border-radius: 5px;
+    border-radius: 12px;
     box-shadow: var(--boxShadow);
     text-align: center;
     position: relative;
@@ -42,9 +42,9 @@
       position: absolute;
       right: 0.5rem;
       top: 0.5rem;
-      background: transparent;
-      border: 0;
-      font-size: 0;
+      // background: transparent;
+      // border: 0;
+      // font-size: 0;
     }
   }
 }

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
+import { FaUserAlt } from "react-icons/fa";
 import { ChallengesContext } from '../contexts/ChallengesContext';
 import styles from '../styles/components/Profile.module.scss';
-import { FaUserAlt } from "react-icons/fa";
 
 export function Profile() {
 
@@ -19,7 +19,7 @@ export function Profile() {
         <strong>Anônimo</strong>
         <p>
           <img src="icons/level.svg" alt="Level"/>
-          Lavel: {level}
+          Level: {level}
         </p>
       </div>
     </div>

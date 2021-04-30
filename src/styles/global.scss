@@ -25,8 +25,10 @@
     --countdownDivider: #121212;
     --gray-line: rgba(255, 255, 255, 0.3);
     --disabled: rgba(255, 255, 255, 0.37);
+    --scrim: rgba(0, 0, 0, 0.5);
+    --modalBackground: #2d2d2d;
 
-    button {
+    .button.default {
       @extend %buttonOutline;
     }
   }
@@ -41,8 +43,10 @@
     --countdownDivider: #f0f1f3;
     --gray-line: #dcdde0;
     --disabled: #fff;
+    --scrim: rgba(0, 0, 0, 0.37);
+    --modalBackground: #f4f5f6;
 
-    button {
+    .button.default {
       @extend %buttonSolid;
     }
   }

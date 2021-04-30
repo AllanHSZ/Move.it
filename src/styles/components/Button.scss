@@ -1,9 +1,27 @@
-button {
+.button {
   &.solid {
     @extend %buttonSolid;
   }
   &.outline {
     @extend %buttonOutline;
+  }
+
+  &.icon {
+    color: var(--text);
+    background: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--title);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--disabled);
+    }
   }
 }
 
