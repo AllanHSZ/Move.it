@@ -4,7 +4,7 @@ interface ButtonProps {
   children: ReactNode,
   type?: 'icon' | 'outline' | 'solid' | 'default',
   color?: 'danger' | 'success' | 'primary',
-  size: 'small' | 'normal' | 'huge'
+  size?: 'small' | 'normal' | 'huge'
   [key: string]: any
 }
 
