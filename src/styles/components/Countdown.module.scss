@@ -38,23 +38,13 @@
     width: 100%;
     margin-top: 2rem;
 
-    // &Active {
-    //   background: var(--onBackground);
-    //   color: var(--title);
-    //   &:not(:disabled):hover {
-    //     background: var(--red) !important;
-    //     color: var(--onBackground);
-    //   }
-    // }
+    &Finished {
+      background: var(--onBackground) !important;
+      border-bottom: 5px solid var(--green) !important;
 
-    // &:not(:disabled):hover {
-    //   background: var(--blue-dark);
-    // }
-
-    // &:disabled {
-    //   cursor: not-allowed;
-    //   background: var(--disabled);
-    //   color: var(--text);
-    // }
+      svg {
+        stroke: var(--green);
+      }
+    }
   }
 }

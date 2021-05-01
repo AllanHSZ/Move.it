@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { CountdownContext } from '../contexts/CountdownContext'
 import styles from '../styles/components/Countdown.module.scss';
+import { FiX, FiCheckCircle, FiPlay } from 'react-icons/fi';
 import { Button } from './Button';
 
 export function Countdown() {
@@ -34,10 +35,12 @@ export function Countdown() {
       { hasFinished ? (
         <Button 
           disabled
+          type="solid"
           size="huge"
-          className={styles.countdownButton}
+          className={`${styles.countdownButton} ${styles.countdownButtonFinished}`}
         >
           Ciclo encerrado
+          <FiCheckCircle />
         </Button>
       
       ) : (
@@ -50,6 +53,7 @@ export function Countdown() {
               className={styles.countdownButton}
             >
               Abandonar ciclo
+              <FiX />
             </Button>
           ) : (
             <Button
@@ -59,6 +63,7 @@ export function Countdown() {
               className={styles.countdownButton}
             >
               Iniciar um ciclo
+              <FiPlay />
             </Button>
           )}
         </>
