@@ -58,7 +58,7 @@
     }
   }
 
-  &.sucess {
+  &.success {
     color: #fff;
     transition: filter 0.2s;
     background: var(--green);
@@ -89,7 +89,7 @@
     @include buttonOutlineHover(var(--red));
   }
 
-  &.sucess {
+  &.success {
     @include buttonOutlineHover(var(--green));
   }
 

@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+.root {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
 .theme {
   --red: #e83f5b;
   --green: #4cd62b;
@@ -13,6 +19,7 @@
   --blue-dark: #4953b8;
   --blue-twitter: #2aa9e0;
   --text-highlight: #b3b9ff;
+  --radius: 6px;
 
   &--dark {
     --background: #121212;

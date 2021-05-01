@@ -36,7 +36,7 @@ export function ChallengeBox() {
               Falhei
             </Button>
             <Button
-              color="sucess"
+              color="success"
               size="small"
               onClick={handleChallengeSuceeded}>
               Completei
