@@ -5,16 +5,15 @@ interface ButtonProps {
   type?: 'icon' | 'outline' | 'solid' | 'default',
   color?: 'danger' | 'success' | 'primary',
   size?: 'small' | 'normal' | 'huge'
+  htmlType?: 'submit' | 'reset' | 'button',
   [key: string]: any
 }
 
-export function Button({ children, ...props }: ButtonProps) {
-
-  const { type, color, size, className, ...rest } = props;
+export function Button({ children, type, color, size, className, htmlType, ...rest }: ButtonProps) {
 
   return (
     <button 
-      type="button" 
+      type={htmlType ?? 'button'} 
       className={`button ${type ?? 'default'} ${color ?? ''} ${size ?? ''} ${className ?? ''}` } 
       {...rest}
     >
