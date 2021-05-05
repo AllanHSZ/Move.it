@@ -11,7 +11,9 @@ export const Root = ({ Component, pageProps, ...rest}) => {
   const { asPath } = useRouter();
   const { isLogin } = useContext(UserContext);
   const isMobile = useMedia("(max-width: 640px)");
-  const { needAuth } = Routers.filter((router: any) => router.path === asPath)[0];
+  const routers = Routers.filter((router: any) => router.path === asPath);
+
+  const needAuth = routers[0]?.needAuth ?? false;
 
   return (
     <div className="root theme theme--dark">
