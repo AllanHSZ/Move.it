@@ -2,18 +2,19 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { Button } from "../components/Button";
-import { Form } from "../components/Form";
 import { FormPage } from "../components/FormPage";
 import { Input } from "../components/Input";
 import { Redirecting } from "../components/Redirecting";
-import { Spinner } from "../components/Spinner";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext, UserData } from "../contexts/UserContext";
+import useForm from "../hooks/useForm";
 import styles from "../styles/pages/Login.module.scss"
 
 const Login = () => {
+  
   const router = useRouter();
   const { login, isLogin } = useContext(UserContext);
-  const [isLoading, setLoading] = useState(false);
+  const { value, isValidate, onValidate, onChange} = useForm();
+  const [isSubmiting, setSubmiting] = useState(false);
   const [error, setError] = useState(null);
 
   if (isLogin) {
@@ -21,16 +22,16 @@ const Login = () => {
     return <Redirecting />;
   }
 
-  function handleSubmit({ email, password }: any) {
-    console.log('Login, user =', { email, password });
-    setLoading(true);
+  function handleLogin() {
+    setError(null);
+    setSubmiting(true);
     setTimeout(() => {
-      let users = JSON.parse(window.localStorage.getItem('users') ?? '[]') as any[];
-      const filtered = users.filter((user: any) => user.email === email || user.username === email);
+      let users = JSON.parse(window.localStorage.getItem('users') ?? '[]') as UserData[];
+      const filtered = users.filter(({email, username}) => email === value.user || username === value.user);
       if (filtered.length === 0) {
         setError('Usuário ou email não encontrado.');
       } else {
-        const find = filtered.find((user: any) => user.password === password);
+        const find = filtered.find(({password}) => password === value.password);
         if (find){
           setError(null);
           login(find);
@@ -38,7 +39,7 @@ const Login = () => {
           setError('Usuário ou senha incorreta.');
         }
       }  
-      setLoading(false);
+      setSubmiting(false);
     }, 2500);
   }
 
@@ -47,13 +48,16 @@ const Login = () => {
       <Head>
         <title>Login | Move.it</title>
       </Head>
-      <Form className={styles.form} onSubmit={handleSubmit} isLoading={isLoading}>
+      <form className={styles.form} >
         <Input 
           label="E-mail ou usuário" 
           name="email" 
           required={true}
           showRequired={false}
           showError={false}
+          disabled={isSubmiting}
+          onChange={(value) => onChange('user', value)}
+          onValidate={(value) => onValidate('user', value)}
         />
         <Input 
           label="Senha" 
@@ -62,16 +66,19 @@ const Login = () => {
           required={true}
           showRequired={false}
           showError={false}
+          disabled={isSubmiting}
+          onChange={(value) => onChange('password', value)}
+          onValidate={(value) => onValidate('password', value)}
         />
         <Button 
           color="primary" 
-          disabled={isLoading}
-          htmlType="submit"
+          onClick={handleLogin}
+          disabled={!isValidate || isSubmiting}
         >
-          {isLoading ? 'Entrando...' : 'Entrar'}
+          {isSubmiting ? 'Entrando...' : 'Entrar'}
         </Button>
         {error && <span className="error">{error}</span>}
-      </Form>
+      </form>
       <div className={styles.singupWrapper}>
         <h3 className="title">Cadastre-se</h3>
         <div className={styles.singup}>
@@ -79,7 +86,7 @@ const Login = () => {
           <Button
             color="primary" 
             size="small" 
-            disabled={isLoading}
+            disabled={isSubmiting}
             onClick={() => router.push('/register')}
           >
             Criar conta

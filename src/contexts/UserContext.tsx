@@ -2,9 +2,10 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
-interface UserData{
+export interface UserData{
   username: string,
   name: string,
+  password: string,
   email: string,
   level?: number, 
   currentExperience?: number, 

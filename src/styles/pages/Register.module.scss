@@ -9,6 +9,10 @@
 
   div {
     width: 100%;
+
+    &:last-of-type {
+      margin-bottom: 0.75rem;
+    }
   }
 }
 

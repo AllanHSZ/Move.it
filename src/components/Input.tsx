@@ -9,7 +9,7 @@ interface InputProps {
   type?: string,
   showRequired?: boolean,
   showError?: boolean,
-  onValidateChange?: (valid: boolean) => void,
+  onValidate?: (valid: boolean) => void,
   onChange?: (value: string) => void,
   onBlur?: (value: any) => void,
   [key: string]: any,
@@ -36,7 +36,7 @@ export const Input = ({
     required, 
     type, 
     onChange, 
-    onValidateChange, 
+    onValidate, 
     name, 
     showError = true, 
     showRequired = true,
@@ -48,8 +48,8 @@ export const Input = ({
 
   useEffect(() => {
     
-    if (onValidateChange)
-      onValidateChange(isValidate);
+    if (onValidate)
+      onValidate(isValidate);
 
   }, [isValidate])
 

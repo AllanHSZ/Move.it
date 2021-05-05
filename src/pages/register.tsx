@@ -2,19 +2,20 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { Button } from '../components/Button';
-import { Form } from '../components/Form';
 import { FormPage } from '../components/FormPage';
 import { Input } from '../components/Input';
 import { Redirecting } from '../components/Redirecting';
-import { Spinner } from '../components/Spinner';
 import { UserContext } from '../contexts/UserContext';
+import useForm from '../hooks/useForm';
 import styles from '../styles/pages/Register.module.scss';
 
 const Register = () => {
 
   const router = useRouter();
   const { login, isLogin } = useContext(UserContext);
-  const [isLoading, setLoading] = useState(false);
+
+  const { value, isValidate, onValidate, onChange} = useForm();
+  const [isSubmiting, setSubmiting] = useState(false);
   const [error, setError] = useState(null);
 
   if (isLogin) {
@@ -22,18 +23,20 @@ const Register = () => {
     return <Redirecting />;
   }
 
-  function handleSubmit(user: any){
-    setLoading(true);
+  function handleRegister(){
+    setError(null);
+    setSubmiting(true);
     setTimeout(() => {
+      debugger;
       let users = JSON.parse(window.localStorage.getItem('users') ?? '[]');
-      setLoading(false);
-      if (users.find((_user: any) => _user.username === user.username)) {
+      setSubmiting(false);
+      if (users.find((_user: any) => _user.username === value.username)) {
         setError('O usuário já está em uso!');
-      } else if (users.find((_user: any) => _user.email === user.email)){
+      } else if (users.find((_user: any) => _user.email === value.email)){
         setError('O email já está em uso!');
       } else {
-        window.localStorage.setItem('users', JSON.stringify([...users, user]));
-        login(user);
+        window.localStorage.setItem('users', JSON.stringify([...users, value]));
+        login(value);
       }
     }, 5000);
   }
@@ -48,14 +51,50 @@ const Register = () => {
       <Head>
         <title>Cadastro | Move.it</title>
       </Head>
-      <Form className={styles.form} onSubmit={handleSubmit} isLoading={isLoading}>
-        <Input label="Usuário" required={true} name="username"></Input>
-        <Input label="E-mail" required={true} type="email" name="email"></Input>
-        <Input label="Senha" required={true} type="password" name="password"></Input>
-        <Input label="Nome" required={true} name="name"></Input>
-        <Button color="primary" htmlType="submit">{isLoading ? "Cadastrando..." : "Criar conta"}</Button>
+      <form className={styles.form}>
+        <Input 
+          label="Usuário" 
+          required={true} 
+          name="username"
+          disabled={isSubmiting}
+          onChange={(value) => onChange('username', value)}
+          onValidate={(value) => onValidate('username', value)}
+        />
+        <Input 
+          label="E-mail" 
+          required={true} 
+          type="email" 
+          name="email"
+          disabled={isSubmiting}
+          onChange={(value) => onChange('email', value)}
+          onValidate={(value) => onValidate('email', value)}
+        />
+        <Input 
+          label="Senha" 
+          required={true} 
+          type="password" 
+          name="password"
+          disabled={isSubmiting}
+          onChange={(value) => onChange('password', value)}
+          onValidate={(value) => onValidate('password', value)}
+        />
+        <Input 
+          label="Nome" 
+          required={true} 
+          name="name"
+          disabled={isSubmiting}
+          onChange={(value) => onChange('name', value)}
+          onValidate={(value) => onValidate('name', value)}
+        />
+        <Button 
+          color="primary" 
+          onClick={handleRegister}
+          disabled={!isValidate || isSubmiting}
+        >
+          {isSubmiting ? "Cadastrando..." : "Criar conta"}
+        </Button>
         {error && <span className="error">{error}</span>}
-      </Form>
+      </form>
       <div className={styles.singInWrapper}>
         <h3 className="title">Entrar</h3>
         <div className={styles.singIn}>
@@ -63,7 +102,7 @@ const Register = () => {
           <Button
             color="primary" 
             size="small"
-            disabled={isLoading}
+            disabled={isSubmiting}
             onClick={() => router.push('/login')}
           >
             Entrar
