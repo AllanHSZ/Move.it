@@ -1,0 +1,45 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1.5rem;
+  gap: 0.5rem 1.5rem;
+  max-width: 500px;
+  align-items: center;
+
+  div {
+    width: 100%;
+  }
+}
+
+.singIn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.copyright {
+  position: initial !important;
+}
+
+@media screen and (max-width: 380px) {
+  .form button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .section {
+    justify-content: unset !important;
+    overflow: auto;
+    gap: 2rem;
+  }
+}
