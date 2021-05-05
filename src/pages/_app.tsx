@@ -1,16 +1,13 @@
-import { Nav } from '../components/Nav';
-import useMedia from '../hooks/useMedia';
+import { Root } from '../components/Root';
+import { UserProvider } from '../contexts/UserContext';
 import '../styles/global.scss'
 
-function MyApp({ Component, pageProps }) {
-
-  const isMobile = useMedia("(max-width: 640px)");
+function MyApp({ Component, pageProps}) {
 
   return (
-    <div className="root theme theme--dark">
-      <Nav isMobile={isMobile} />
-      <Component {...pageProps} />
-    </div>
+    <UserProvider userData={null}>
+      <Root Component={Component} pageProps={pageProps} />
+    </UserProvider>
   );
 }
 

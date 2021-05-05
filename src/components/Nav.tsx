@@ -1,4 +1,7 @@
-import { FiAward, FiHome, FiUser } from "react-icons/fi";
+import { useContext } from "react";
+import { FiLogOut } from "react-icons/fi";
+import { UserContext } from "../contexts/UserContext";
+import { Routers } from "../Routers";
 import styles  from '../styles/components/Nav.module.scss';
 import ActiveLink from './ActiveLink';
 
@@ -7,26 +10,24 @@ export interface NavProps {
 }
 
 export const Nav = ({ isMobile }: NavProps) => {
-  console.log("isMobile", isMobile);
+  const { logout } = useContext(UserContext);
+
   return (
     <nav className={`${styles.nav} ${isMobile && styles.navMobile}`}>
       <img src="logo.svg" alt="Move.it"/>
       <ul>
-        <ActiveLink activeClassName={styles.active} href="/">
-          <li data-pos="1">
-            <FiHome />
-          </li>
-        </ActiveLink>
-        <ActiveLink activeClassName={styles.active} href="/login">
-          <li data-pos="2">
-            <FiUser />
-          </li>
-        </ActiveLink>
-        <ActiveLink activeClassName={styles.active} href="/award">
-          <li data-pos="3">
-            <FiAward />
-          </li>
-        </ActiveLink>
+        {
+          Routers.filter((router) => router.addInNav && router.icon).map(({path, icon}) => (
+            <ActiveLink  activeClassName={styles.active} href={path} key="path">
+              <li>
+                {icon}
+              </li>
+            </ActiveLink>
+          ))
+        }
+        <li onClick={logout}>
+          {<FiLogOut/>}
+        </li>
         <div className={styles.mark}></div>
       </ul>
     </nav>

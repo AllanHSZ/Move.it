@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  & > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    background: var(--modalBackground);
+    box-shadow: var(--needLoginBoxShadow);
+    border-radius: var(--radius);
+    z-index: 500;
+    margin: 1.5rem;
+    padding: 1.5rem;
+    max-width: 480px;
+    width: 100%;
+    gap: 1rem;
+
+    p {
+      margin: 0.5rem 0 1rem;
+    }
+
+    footer {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media screen and (min-width: 660px) {
+  .wrapper > div {
+    max-width: 50%;
+  }
+}

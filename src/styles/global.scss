@@ -6,11 +6,34 @@
   box-sizing: border-box;
 }
 
+.page--fill {
+  width: 100%;
+  height: 100%;
+}
+
+.page--center {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.page--column {
+  flex-direction: column;
+}
+
 .root {
   display: flex;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+.pageContainer {
+  max-width: 992px;
+  height: 100vh;
+  width: 100%;
+  padding: 2.5rem 2rem;
 }
 
 .theme {
@@ -20,6 +43,7 @@
   --blue-dark: #4953b8;
   --blue-twitter: #2aa9e0;
   --text-highlight: #b3b9ff;
+  --needLoginBoxShadow: 0 0 60px rgba(0, 0, 0, 0.05);
   --radius: 6px;
 
   &--dark {
@@ -30,11 +54,14 @@
     --onBackgroundLowEmphasis: rgba(255, 255, 255, 0.08);
     --onBackground: rgba(255, 255, 255, 0.1);
     --boxShadow: none;
+    --boxShadowSmall: none;
     --countdownDivider: #121212;
     --gray-line: rgba(255, 255, 255, 0.3);
     --disabled: rgba(255, 255, 255, 0.37);
     --scrim: rgba(0, 0, 0, 0.5);
     --modalBackground: #2d2d2d;
+    --inputBoxShadow: 0px 0px 0px transparent;
+    --buttonBoxShadow: none;
 
     .button.default {
       @extend %buttonOutline;
@@ -48,11 +75,14 @@
     --title: #2e384d;
     --onBackground: #fff;
     --boxShadow: 0 0 60px rgba(0, 0, 0, 0.05);
+    --boxShadowSmall: 0px 0px 10px rgba(0, 0, 0, 0.07);
     --countdownDivider: #f0f1f3;
     --gray-line: #dcdde0;
     --disabled: #fff;
     --scrim: rgba(0, 0, 0, 0.37);
-    --modalBackground: #f4f5f6;
+    --modalBackground: #fff;
+    --inputBoxShadow: var(--boxShadowSmall);
+    --buttonBoxShadow: 0px 0px 16px rgba(0, 0, 0, 0.15);
 
     .button.default {
       @extend %buttonSolid;
@@ -61,6 +91,33 @@
 
   background: var(--background);
   color: var(--text);
+}
+
+.title {
+  color: var(--title);
+  position: relative;
+  padding: 0.5rem 0;
+
+  &--center:after {
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+
+  &:after {
+    content: '';
+    background: currentColor;
+    height: 3px;
+    width: 50%;
+    min-width: 45px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.error {
+  color: var(--red);
+  min-height: 1.2rem;
 }
 
 @media (max-width: 1080px) {
@@ -81,6 +138,43 @@
   }
 }
 
+.logoDecoration {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    height: 40%;
+    width: 100%;
+    position: absolute;
+    z-index: 5;
+  }
+  &:before {
+    background: linear-gradient(0deg, transparent 0%, var(--background) 65%);
+    top: 0;
+  }
+
+  &:after {
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, var(--background) 70%);
+  }
+
+  & > svg {
+    height: 100vh;
+    width: 100vh;
+    right: 0;
+    position: absolute;
+    transform: translateX(-5%);
+
+    path {
+      fill: var(--onBackground);
+    }
+  }
+}
+
 body,
 input,
 textarea,
@@ -95,4 +189,13 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--title);
 }
