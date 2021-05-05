@@ -31,7 +31,8 @@ export const UserProvider = ({ children, userData }: UserProviderProps) => {
   const [ user, setUser] = useState(userData);
 
   useEffect(() => {
-    const _user = JSON.parse(Cookies.get('user'))
+    const userInCookie = Cookies.get('user');
+    const _user = userInCookie ? JSON.parse(Cookies.get('user')) : null;
     console.log("Load logged user in cookie's", _user);
     setUser(_user);
     setLogin(_user !== null);
