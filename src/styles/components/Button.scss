@@ -14,7 +14,8 @@
     padding: 0.75rem;
     transition: color 0.2s;
 
-    &:hover {
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
       color: var(--title);
     }
 
@@ -28,7 +29,8 @@
 @mixin buttonOutlineHover($color, $colorOnHover: brightness($color, 0.9)) {
   color: $color;
   border-color: $color;
-  &:not(:disabled):hover {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     color: white;
     background: $color;
   }
@@ -45,7 +47,8 @@
     color: #fff;
     transition: background 0.2s;
     background: var(--blue);
-    &:hover {
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
       background: var(--blue-dark);
     }
   }
@@ -54,7 +57,8 @@
     color: #fff;
     transition: filter 0.2s;
     background: var(--red);
-    &:hover {
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
       filter: brightness(0.9);
     }
   }
@@ -63,7 +67,8 @@
     color: #fff;
     transition: filter 0.2s;
     background: var(--green);
-    &:hover {
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
       filter: brightness(0.9);
     }
   }
