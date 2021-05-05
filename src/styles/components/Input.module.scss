@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 1rem;
+    // font-weight: 500;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+
+    .required {
+      color: red;
+    }
+  }
+
+  input {
+    background: var(--onBackground);
+    border: none;
+    padding: 0.75rem;
+    color: var(--text);
+    font-size: 1rem;
+    border-radius: var(--radius);
+    box-shadow: var(--inputBoxShadow);
+    outline: none;
+    transition: box-shadow 0.2s;
+
+    &:not(:disabled):focus,
+    &:not(:disabled):hover {
+      box-shadow: 0 0 1px 2px var(--blue-dark), var(--inputBoxShadow);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .error {
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    height: 1.15rem;
+  }
+}
