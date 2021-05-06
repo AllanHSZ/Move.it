@@ -9,6 +9,8 @@ interface InputProps {
   type?: string,
   showRequired?: boolean,
   showError?: boolean,
+  validOnChange?: boolean,
+  validate?: (value: string) => true | string,
   onValidate?: (valid: boolean) => void,
   onChange?: (value: string) => void,
   onBlur?: (value: any) => void,
@@ -36,10 +38,12 @@ export const Input = ({
     required, 
     type, 
     onChange, 
+    validate,
     onValidate, 
     name, 
     showError = true, 
     showRequired = true,
+    validOnChange = true,
      ...rest}: InputProps) => {
 
   const [error, setError] = useState('');
@@ -53,7 +57,9 @@ export const Input = ({
 
   }, [isValidate])
 
-  function validate(value): true | string {
+  function handleValidate(value: string): true | string {
+
+    if (validate) return validate(value);
 
     if (required && value.trim().length === 0)
       return 'Preenchimetno obrigatório..'
@@ -65,21 +71,26 @@ export const Input = ({
   }
 
   function _onChange({ target }) {
-    const result = validate(target.value.trim());
-    setValidate(result === true);
-    if (result === true) {
-      setValidate(true);
-      setError(null);
-    } else {
-      setValidate(false);
-      setError(result);
+
+    if (validOnChange || error) {
+      const result = handleValidate(target.value.trim());
+      setValidate(result === true);
+
+      if (result === true) {
+        setValidate(true);
+        setError(null);
+      } else {
+        setValidate(false);
+        setError(result);
+      }
     }
+
     if (onChange)
       onChange(target.value.trim());
   }
 
   function _onBlur({ target }) {
-    const result = validate(target.value.trim()); 
+    const result = handleValidate(target.value.trim()); 
     if (result === true) {
       setValidate( true);
     } else {

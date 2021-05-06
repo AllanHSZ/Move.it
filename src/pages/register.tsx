@@ -8,12 +8,12 @@ import { Redirecting } from '../components/Redirecting';
 import { UserContext } from '../contexts/UserContext';
 import useForm from '../hooks/useForm';
 import styles from '../styles/pages/Register.module.scss';
+import { register } from '../Api/UserApi'
 
 const Register = () => {
 
   const router = useRouter();
   const { login, isLogin } = useContext(UserContext);
-
   const { value, isValidate, onValidate, onChange} = useForm();
   const [isSubmiting, setSubmiting] = useState(false);
   const [error, setError] = useState(null);
@@ -23,22 +23,15 @@ const Register = () => {
     return <Redirecting />;
   }
 
-  function handleRegister(){
+  async function handleRegister(){
     setError(null);
     setSubmiting(true);
-    setTimeout(() => {
-      debugger;
-      let users = JSON.parse(window.localStorage.getItem('users') ?? '[]');
+    try {
+      login(await register(value));
+    } catch (e) {
       setSubmiting(false);
-      if (users.find((_user: any) => _user.username === value.username)) {
-        setError('O usuário já está em uso!');
-      } else if (users.find((_user: any) => _user.email === value.email)){
-        setError('O email já está em uso!');
-      } else {
-        window.localStorage.setItem('users', JSON.stringify([...users, value]));
-        login(value);
-      }
-    }, 5000);
+      setError(e);
+    }
   }
 
   return (
@@ -77,6 +70,16 @@ const Register = () => {
           disabled={isSubmiting}
           onChange={(value) => onChange('password', value)}
           onValidate={(value) => onValidate('password', value)}
+        />
+        <Input 
+          label="Repita a senha" 
+          required={true} 
+          type="password" 
+          name="password2"
+          disabled={isSubmiting}
+          validOnChange={false}
+          validate={(password2) => password2 === value.password || 'As senhas não coincidem.'}
+          onValidate={(value) => onValidate('password2', value)}
         />
         <Input 
           label="Nome" 

@@ -7,6 +7,7 @@ import { Routers } from '../Routers';
 import { NeedLogin } from './NeedLogin';
 import { Redirecting } from './Redirecting';
 
+let mounted = false;
 export const Root = ({ Component, pageProps, ...rest}) => {
 
   const router = useRouter();
@@ -15,24 +16,27 @@ export const Root = ({ Component, pageProps, ...rest}) => {
   const routers = Routers.filter((_router: any) => _router.path === router.asPath);
 
   const needAuth = routers[0]?.needAuth ?? false;
-  
 
   useEffect(() => {
+    mounted = true;
     if (needAuth && !isLogin)
       router.replace("/login"); 
   }, [])
-  
 
   return (
-    <div className="root theme theme--dark">
-      { needAuth && !isLogin ? (
-        <Redirecting/>
+      mounted ? (
+        <div className="root theme theme--dark">
+          { needAuth && !isLogin ? (
+            <Redirecting/>
+          ) : (
+            <>
+              {isLogin && mounted && <Nav isMobile={isMobile} />}
+              <Component {...pageProps} />
+            </>
+          )} 
+        </div>
       ) : (
-        <>
-          {isLogin && <Nav isMobile={isMobile} />}
-          <Component {...pageProps} />
-        </>
-      )} 
-    </div>
+        <Component {...pageProps} />
+      )
   );
 }

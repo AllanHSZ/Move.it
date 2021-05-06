@@ -1,7 +1,7 @@
-import { createContext, useState, ReactNode, useEffect } from 'react';
-import Cookies from 'js-cookie';
+import { createContext, useState, ReactNode, useEffect, useContext } from 'react';
 import challenges from '../../challenges.json';
 import { LevelUpModal } from '../components/LevelUpModal';
+import { UserContext } from './UserContext';
 
 interface Challenge {
   type: 'body' | 'eye',
@@ -10,9 +10,6 @@ interface Challenge {
 }
 
 interface ChallengesContextDate {
-  level: number, 
-  currentExperience: number, 
-  challengesCompleted: number,
   experienceToNextLevel: number,
   activeChallenge: Challenge,
   levelUp: () => void,
@@ -24,17 +21,14 @@ interface ChallengesContextDate {
 
 interface ChallengesProviderProps {
   children: ReactNode;
-  level: number,
-  currentExperience: number,
-  challengesCompleted: number,
 }
 
 export const ChallengesContext = createContext({} as ChallengesContextDate);
 
-export function ChallengesProvider({ children, ...rest }: ChallengesProviderProps) {
-  const [level, setLevel] = useState(rest.level ?? 1);
-  const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
-  const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
+export function ChallengesProvider({ children  }: ChallengesProviderProps) {
+
+  const { level, setLevel, currentExperience, setCurrentExperience, challengesCompleted, setChallengesCompleted } = useContext(UserContext);
+
   const [activeChallenge, setActiveChallenge] = useState(null);
   const [isLevelUpModalOpen, setIsLevelModalOpen ] = useState(false);
 
@@ -43,12 +37,6 @@ export function ChallengesProvider({ children, ...rest }: ChallengesProviderProp
   useEffect(() => {
     Notification.requestPermission();
   }, [])
-
-  useEffect(() => {
-    Cookies.set('level', String(level));
-    Cookies.set('currentExperience', String(currentExperience));
-    Cookies.set('challengesCompleted', String(challengesCompleted));
-  }, [level, currentExperience, challengesCompleted]);
 
   function levelUp(){
     setLevel(level + 1);
@@ -98,9 +86,6 @@ export function ChallengesProvider({ children, ...rest }: ChallengesProviderProp
   return (
     <ChallengesContext.Provider 
       value={{ 
-        level, 
-        currentExperience, 
-        challengesCompleted,
         activeChallenge,
         experienceToNextLevel,
         levelUp,

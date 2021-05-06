@@ -3,9 +3,9 @@ import { UserProvider } from '../contexts/UserContext';
 import '../styles/global.scss'
 
 function MyApp({ Component, pageProps}) {
-
+  
   return (
-    <UserProvider userData={null}>
+    <UserProvider>
       <Root Component={Component} pageProps={pageProps} />
     </UserProvider>
   );
