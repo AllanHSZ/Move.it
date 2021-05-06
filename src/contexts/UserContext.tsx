@@ -1,8 +1,10 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { update } from "../Api/UserApi";
 
 export interface UserData{
+  id?: string,
   username: string,
   name: string,
   email: string,
@@ -26,11 +28,12 @@ interface UserProviderProps {
 
 export const UserContext = createContext({} as UserContextData);
 
-export const UserProvider = ({ children, ...rest }: UserProviderProps) => {
+export const UserProvider = ({ children }: UserProviderProps) => {
 
   const router = useRouter();
   const [ isLogin, setLogin] = useState(false);
 
+  const [ id, setId ] = useState(null);
   const [ username, setUsername ] = useState(null);
   const [ name, setName ] = useState(null);
   const [ email, setEmail ] = useState(null)
@@ -39,12 +42,14 @@ export const UserProvider = ({ children, ...rest }: UserProviderProps) => {
   const [challengesCompleted, setChallengesCompleted] = useState(0);
 
   useEffect(() => {
-    Cookies.set('user', JSON.stringify({username, name, email, level, currentExperience, challengesCompleted}));
+    if (id !== null)
+      update({id, username, name, email, level, currentExperience, challengesCompleted});
   }, [username, name, email, level, currentExperience, challengesCompleted]);
 
   function login(user: UserData) {
+    setId(user.id);
     setUsername(user.username);
-    setName(user.username);
+    setName(user.name);
     setEmail(user.name);
     setLevel(user.level ?? 1);
     setCurrentExperience(user.currentExperience ?? 0);

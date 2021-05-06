@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { UserData } from "../contexts/UserContext";
 
 export function getUsers(): UserData[] {
@@ -17,6 +18,7 @@ export function register(user: UserData): Promise<any> {
         return;
       } 
 
+      user.id = String(Date.now());
       insertUser(user);
       delete user.password;
       resolve(user);
@@ -25,10 +27,10 @@ export function register(user: UserData): Promise<any> {
   });
 }
 
-export async function login(id: string, password: string): Promise<any> {
+export async function login(username: string, password: string): Promise<any> {
   return new Promise<UserData>((resolver, reject) => {
     setTimeout(() => {
-      const filtered = getUsers().filter(({email, username}) => email === id || username === id);
+      const filtered = getUsers().filter(({email, username}) => email === username || username === username);
 
       if (filtered.length === 0) {
         reject('Usuário ou email não encontrado.');
@@ -49,6 +51,13 @@ export async function login(id: string, password: string): Promise<any> {
   });
 }
 
+export async function update(user: UserData){
+  Cookies.set('user', JSON.stringify(user));
+  const users = getUsers();
+  users[users.indexOf(users.find(({ id }) => id === user.id))] =  user;
+  insertUsers(users);
+}
+
 function findUserByUserName(username: string): UserData {
   return getUsers().find((user: UserData) => user.username === username);
 }
@@ -57,5 +66,9 @@ function findUserByEmail(email: string): UserData {
 }
 
 function insertUser(user: UserData){
-  window.localStorage.setItem('users', JSON.stringify([...getUsers(), user]));
+  insertUsers([...getUsers(), user]);
+}
+
+function insertUsers(users: UserData[]){
+  window.localStorage.setItem('users', JSON.stringify(users));
 }
