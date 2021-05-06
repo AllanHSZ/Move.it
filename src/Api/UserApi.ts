@@ -54,7 +54,9 @@ export async function login(username: string, password: string): Promise<any> {
 export async function update(user: UserData){
   Cookies.set('user', JSON.stringify(user));
   const users = getUsers();
-  users[users.indexOf(users.find(({ id }) => id === user.id))] =  user;
+  const oldUser = users.find(({ id }) => id === user.id);
+  user.password = oldUser.password;
+  users[users.indexOf(oldUser)] =  user;
   insertUsers(users);
 }
 

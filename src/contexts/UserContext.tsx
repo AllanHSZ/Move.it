@@ -61,6 +61,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   function logout(){
     setLogin(false);
+    setId(null);
     setUsername(null);
     setName(null);
     setEmail(null);
