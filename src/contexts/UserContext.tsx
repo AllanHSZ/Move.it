@@ -24,23 +24,26 @@ interface UserContextData extends UserData {
 
 interface UserProviderProps {
   children: ReactNode;
+  user: UserData
 }
 
 export const UserContext = createContext({} as UserContextData);
 
-export const UserProvider = ({ children }: UserProviderProps) => {
+export const UserProvider = ({ children, user }: UserProviderProps) => {
 
+  const _user = user ?? {} as UserData;
   const router = useRouter();
-  const [ isLogin, setLogin] = useState(false);
+  
+  const [ id, setId ] = useState( _user.id ?? null );
+  const [ isLogin, setLogin] = useState(Boolean(id));
 
-  const [ id, setId ] = useState(null);
-  const [ username, setUsername ] = useState(null);
-  const [ name, setName ] = useState(null);
-  const [ email, setEmail ] = useState(null)
-  const [ level, setLevel] = useState(1);
-  const [currentExperience, setCurrentExperience] = useState(0);
-  const [challengesCompleted, setChallengesCompleted] = useState(0);
-
+  const [ username, setUsername ] = useState(_user.username ?? null);
+  const [ name, setName ] = useState(_user.name ?? null);
+  const [ email, setEmail ] = useState(_user.email ?? null)
+  const [ level, setLevel] = useState(_user.level ?? 1);
+  const [currentExperience, setCurrentExperience] = useState(_user.currentExperience ?? 0);
+  const [challengesCompleted, setChallengesCompleted] = useState(_user.challengesCompleted ?? 0);
+  
   useEffect(() => {
     if (id !== null)
       update({id, username, name, email, level, currentExperience, challengesCompleted});

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FiHome } from "react-icons/fi";
+import { FiHome, FiUser } from "react-icons/fi";
 
 interface Router {
   icon?: ReactNode,
@@ -11,7 +11,7 @@ interface Router {
 
 export const Routers: Router[] = [{
   icon: <FiHome />,
-  label: 'Home',
+  label: 'Inicio',
   path: '/',
   needAuth: true,
   addInNav: true,
@@ -25,5 +25,13 @@ export const Routers: Router[] = [{
   path: '/register',
   needAuth: false,
   addInNav: false
-}];
+},
+{
+  path: '/user',
+  icon: <FiUser />,
+  label: 'Perfil',
+  needAuth: true,
+  addInNav: true
+}
+];
 

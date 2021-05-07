@@ -1,42 +1,18 @@
-import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Nav } from '../components/Nav';
 import { UserContext } from '../contexts/UserContext';
 import useMedia from '../hooks/useMedia';
-import { Routers } from '../Routers';
-import { NeedLogin } from './NeedLogin';
-import { Redirecting } from './Redirecting';
 
-let mounted = false;
-export const Root = ({ Component, pageProps, ...rest}) => {
+export const Root = ({ Component, pageProps, ...rest }) => {
 
-  const router = useRouter();
-  const { isLogin } = useContext(UserContext);
+  console.log("Root", { Component , pageProps, rest});
   const isMobile = useMedia("(max-width: 640px)");
-  const routers = Routers.filter((_router: any) => _router.path === router.asPath);
-
-  const needAuth = routers[0]?.needAuth ?? false;
-
-  useEffect(() => {
-    mounted = true;
-    if (needAuth && !isLogin)
-      router.replace("/login"); 
-  }, [])
+  const { isLogin } = useContext(UserContext)
 
   return (
-      mounted ? (
-        <div className="root theme theme--dark">
-          { needAuth && !isLogin ? (
-            <Redirecting/>
-          ) : (
-            <>
-              {isLogin && mounted && <Nav isMobile={isMobile} />}
-              <Component {...pageProps} />
-            </>
-          )} 
-        </div>
-      ) : (
-        <Component {...pageProps} />
-      )
+    <div className="root">
+      { isLogin && <Nav isMobile={isMobile} />}
+      <Component {...pageProps} />
+    </div>
   );
 }
