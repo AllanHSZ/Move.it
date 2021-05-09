@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  position: relative;
   padding: 2rem 1.5rem;
   flex-wrap: wrap;
   gap: 3.5rem;
@@ -64,7 +65,6 @@
       margin: auto 0;
       min-width: 352px;
       height: auto !important;
-      // min-height: 528px;
     }
 
     .challengeBox {
