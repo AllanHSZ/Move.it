@@ -20,7 +20,10 @@ function MyApp({ Component, pageProps}) {
     hasAcess = currentRouter && currentRouter.needAuth ? Boolean(user?.id) : true;
     setMounted(true);
 
-    if (!hasAcess) router.replace("/login"); 
+    if (!hasAcess) {
+      router.replace("/login");
+      hasAcess = true;
+    } 
   }, [])
 
   return (
