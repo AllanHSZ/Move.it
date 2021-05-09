@@ -5,7 +5,6 @@ import useMedia from '../hooks/useMedia';
 
 export const Root = ({ Component, pageProps, ...rest }) => {
 
-  console.log("Root", { Component , pageProps, rest});
   const isMobile = useMedia("(max-width: 640px)");
   const { isLogin } = useContext(UserContext)
 

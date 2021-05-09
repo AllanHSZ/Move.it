@@ -12,7 +12,7 @@ import { ChallengesProvider } from '../contexts/ChallengesContext';
 export default function Home() {
   return (
     <ChallengesProvider >
-      <div className={styles.container}>
+      <div className={`pageContent ${styles.container}`}>
         <Head>
           <title>Inicio | Move.it</title>
         </Head>

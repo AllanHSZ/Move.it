@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { update } from "../Api/UserApi";
+import { update, findUserById } from "../api/UserApi";
 
 export interface UserData{
   id?: string,
@@ -14,6 +14,9 @@ export interface UserData{
   challengesCompleted?: number,
 }
 interface UserContextData extends UserData {
+  setName: (name: string) => void,
+  setUsername: (name: string) => void,
+  setEmail: (email: string) => void, 
   setLevel: (level: number) => void,
   setCurrentExperience: (currentExperience: number) => void,
   setChallengesCompleted: (challengesCompleted: number) => void,
@@ -53,7 +56,7 @@ export const UserProvider = ({ children, user }: UserProviderProps) => {
     setId(user.id);
     setUsername(user.username);
     setName(user.name);
-    setEmail(user.name);
+    setEmail(user.email);
     setLevel(user.level ?? 1);
     setCurrentExperience(user.currentExperience ?? 0);
     setChallengesCompleted(user.challengesCompleted ?? 0);
@@ -78,8 +81,11 @@ export const UserProvider = ({ children, user }: UserProviderProps) => {
   return (
     <UserContext.Provider value={{
       username,
+      setUsername,
       name,
+      setName,
       email,
+      setEmail,
       level,
       setLevel,
       currentExperience,

@@ -22,6 +22,13 @@
   flex-direction: column;
 }
 
+.pageContent {
+  max-width: 992px;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
 .root {
   display: flex;
   height: 100vh;
@@ -198,4 +205,8 @@ h4,
 h5,
 h6 {
   color: var(--title);
+}
+
+body {
+  overflow: hidden;
 }

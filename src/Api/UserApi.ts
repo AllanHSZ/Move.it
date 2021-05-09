@@ -30,13 +30,14 @@ export function register(user: UserData): Promise<any> {
 export async function login(username: string, password: string): Promise<any> {
   return new Promise<UserData>((resolver, reject) => {
     setTimeout(() => {
-      const filtered = getUsers().filter(({email, username}) => email === username || username === username);
+      
+      const filtered = getUsers().filter(({email, username: _username}) => (email === username || username === _username));
 
       if (filtered.length === 0) {
         reject('Usuário ou email não encontrado.');
         return;
       }
-
+    
       const find = filtered.find(({password: userPass}) => userPass === password);
       
       if (find) {
@@ -55,9 +56,12 @@ export async function update(user: UserData){
   Cookies.set('user', JSON.stringify(user));
   const users = getUsers();
   const oldUser = users.find(({ id }) => id === user.id);
-  user.password = oldUser.password;
-  users[users.indexOf(oldUser)] =  user;
+  users[users.indexOf(oldUser)] =  { ...oldUser, ...user };
   insertUsers(users);
+}
+
+export function findUserById(id: string): UserData {
+  return getUsers().find((user: UserData) => user.id === id);
 }
 
 function findUserByUserName(username: string): UserData {

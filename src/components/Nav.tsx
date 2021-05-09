@@ -18,7 +18,7 @@ export const Nav = ({ isMobile }: NavProps) => {
       <ul>
         {
           Routers.filter((router) => router.addInNav && router.icon).map(({path, icon}) => (
-            <ActiveLink  activeClassName={styles.active} href={path} key="path">
+            <ActiveLink activeClassName={styles.active} href={path} key={path}>
               <li>
                 {icon}
               </li>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-interface UseForm {
+export interface UseForm {
+  reset: () => void,
   onChange: (name: string, value: string) => void,
   onValidate: (name: string, value: boolean) => void;
   isValidate: boolean,
@@ -25,7 +26,14 @@ export default function useForm(): UseForm {
     setValidates({...validates, [fieldName]: fieldValue});
   }
 
+  function reset() {
+    setValue({});
+    setValidates({});
+    setIsValidate(false);
+  }
+
   return {
+    reset,
     onChange: handleChange,
     onValidate: handleValidate,
     isValidate,

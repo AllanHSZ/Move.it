@@ -7,10 +7,11 @@ interface InputProps {
   required?: boolean,
   name?: string,
   type?: string,
+  value?: string | number,
   showRequired?: boolean,
   showError?: boolean,
   validOnChange?: boolean,
-  validate?: (value: string) => true | string,
+  validate?: (value: string) => boolean | string,
   onValidate?: (valid: boolean) => void,
   onChange?: (value: string) => void,
   onBlur?: (value: any) => void,
@@ -40,14 +41,16 @@ export const Input = ({
     onChange, 
     validate,
     onValidate, 
-    name, 
+    name,
+    value: propsValue,
     showError = true, 
     showRequired = true,
     validOnChange = true,
      ...rest}: InputProps) => {
 
+  const [firstChange, setFirstChange] = useState(true);
   const [error, setError] = useState('');
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(propsValue ? String(propsValue) : '');
   const [isValidate, setValidate] = useState(!required);
 
   useEffect(() => {
@@ -57,9 +60,31 @@ export const Input = ({
 
   }, [isValidate])
 
-  function handleValidate(value: string): true | string {
+  useEffect(() => {
 
-    if (validate) return validate(value);
+    if (firstChange){
+      setFirstChange(false);
+      return;
+    }
+
+    if (validOnChange || error) {
+
+      const result = handleValidate(value);
+      if (result === true) {
+        setValidate(true);
+        setError(null);
+      } else {
+        setValidate(false);
+        setError(result === false ? '' : result);
+      }
+    }
+
+    if (onChange)
+      onChange(value);
+
+  }, [value])
+
+  function handleValidate(value: string): boolean | string {
 
     if (required && value.trim().length === 0)
       return 'Preenchimetno obrigatório..'
@@ -67,26 +92,9 @@ export const Input = ({
     if (type && types[type] && !types[type].regex.test(value))
       return types[type].message;
 
+    if (validate) return validate(value);
+
     return true;
-  }
-
-  function _onChange({ target }) {
-
-    if (validOnChange || error) {
-      const result = handleValidate(target.value.trim());
-      setValidate(result === true);
-
-      if (result === true) {
-        setValidate(true);
-        setError(null);
-      } else {
-        setValidate(false);
-        setError(result);
-      }
-    }
-
-    if (onChange)
-      onChange(target.value.trim());
   }
 
   function _onBlur({ target }) {
@@ -95,7 +103,7 @@ export const Input = ({
       setValidate( true);
     } else {
       setValidate(false);
-      setError(result);
+      setError(result === false ? '' : result);
     }
   }
 
@@ -104,8 +112,9 @@ export const Input = ({
       <label htmlFor={name}>{label} {required && showRequired && <span className={styles.required}>*</span>}</label>
       <input 
         type={type ?? "text"}
-        onChange={_onChange} 
+        onChange={({ target }) => setValue(target.value)} 
         name={name}
+        value={value}
         onBlur={_onBlur}
         {...rest}>
       </input>

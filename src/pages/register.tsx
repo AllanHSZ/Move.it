@@ -8,7 +8,7 @@ import { Redirecting } from '../components/Redirecting';
 import { UserContext } from '../contexts/UserContext';
 import useForm from '../hooks/useForm';
 import styles from '../styles/pages/Register.module.scss';
-import { register } from '../Api/UserApi'
+import { register } from '../api/UserApi'
 
 const Register = () => {
 
@@ -54,7 +54,7 @@ const Register = () => {
           onValidate={(value) => onValidate('username', value)}
         />
         <Input 
-          label="E-mail" 
+          label="Email" 
           required={true} 
           type="email" 
           name="email"
