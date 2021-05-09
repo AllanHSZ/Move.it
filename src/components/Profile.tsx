@@ -3,12 +3,12 @@ import { FaUserAlt } from "react-icons/fa";
 import { UserContext } from '../contexts/UserContext';
 import styles from '../styles/components/Profile.module.scss';
 
-export function Profile() {
+export function Profile({className}) {
 
   const { level, name } = useContext(UserContext);
 
   return (
-    <div className={`${styles.profile}`}>
+    <div className={`${styles.profile} ${className}`}>
       <FaUserAlt className={styles.imgAnonymous} />
       <div>
         <strong>{name}</strong>

@@ -4,7 +4,7 @@ import { CountdownContext } from '../contexts/CountdownContext';
 import styles from '../styles/components/ChallengeBox.module.scss'
 import { Button } from './Button';
 
-export function ChallengeBox() {
+export function ChallengeBox({ className}) {
   const { activeChallenge, resetChallenge, completeChalllenge } = useContext(ChallengesContext);
   const { resetCountdown } = useContext(CountdownContext)
 
@@ -19,7 +19,7 @@ export function ChallengeBox() {
   }
 
   return (
-  <div className={styles.challengeBox}>
+  <div className={`${styles.challengeBox} ${className}`}>
     { activeChallenge ? (
         <div className={styles.challengeActive}>
           <header>Ganhe { activeChallenge.amount } xp</header>

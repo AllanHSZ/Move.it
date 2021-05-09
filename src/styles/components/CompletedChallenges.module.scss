@@ -2,8 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 3.5rem 0;
-  padding-bottom: 1rem;
+  padding-bottom: 0.875rem;
   border-bottom: 1px solid #d7d8da;
   font-weight: 500;
 
@@ -12,6 +11,18 @@
   }
 
   span:last-child {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .completedChallenges > span:last-child {
     font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-height: 700px) {
+  .completedChallenges {
+    padding-bottom: 1rem;
   }
 }

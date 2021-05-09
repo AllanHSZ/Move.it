@@ -4,7 +4,7 @@ import styles from '../styles/components/Countdown.module.scss';
 import { FiX, FiCheckCircle, FiPlay } from 'react-icons/fi';
 import { Button } from './Button';
 
-export function Countdown() {
+export function Countdown({className}) {
 
   const { 
     minutes, 
@@ -19,7 +19,7 @@ export function Countdown() {
   const [ secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
 
   return (
-    <div>
+    <div className={className}>
       <div className={styles.countdown}>
         <div>
           <span>{minuteLeft}</span>

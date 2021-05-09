@@ -16,18 +16,14 @@ export default function Home() {
         <Head>
           <title>Inicio | Move.it</title>
         </Head>
-        <ExperienceBar />
+        <ExperienceBar className={styles.experienceBar} />
         <CountdownProvider>
           <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
+            <Profile className={styles.profile}/>
+            <CompletedChallenges className={styles.completedChallenges}/>
+            <Countdown className={styles.countdown}/>
           </section>
+          <ChallengeBox className={styles.challengeBox}/>
         </CountdownProvider>
       </div>
     </ChallengesProvider>

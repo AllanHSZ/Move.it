@@ -12,7 +12,7 @@
     justify-content: space-evenly;
     background: var(--onBackground);
     box-shadow: var(--boxShadow);
-    border-radius: 5px;
+    border-radius: var(--radius);
     font-size: 8.5rem;
     text-align: center;
 
@@ -45,6 +45,20 @@
       svg {
         stroke: var(--green);
       }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .countdown {
+    & > div {
+      font-size: 6.5rem;
+    }
+
+    &Button {
+      font-size: 1rem;
+      height: 4rem !important;
+      padding: 0 !important;
     }
   }
 }

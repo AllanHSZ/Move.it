@@ -1,13 +1,98 @@
 .container {
-  padding: 2.5rem 2rem;
   display: flex;
-  flex-direction: column;
+  padding: 2rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 3.5rem;
+
+  .experienceBar {
+    height: 56px;
+    grid-area: experienceBar;
+    width: 100%;
+  }
 
   section {
     flex: 1;
+    display: flex;
+    height: 100%;
+    grid-area: data;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .profile {
+    grid-area: profile;
+  }
+
+  .completedChallenges {
+    grid-area: completedChallenges;
+  }
+
+  .countdown {
+    margin: auto 0;
+    grid-area: countdown;
+
+    button {
+      height: 4.5rem;
+    }
+  }
+
+  .challengeBox {
+    display: none;
+    grid-area: challengeBox;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  div.container {
+    padding: 3rem 4rem !important;
+    gap: 1.5rem 5rem !important;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6.25rem;
-    align-content: center;
+    padding: 1rem 2rem !important;
+    gap: 1rem 2rem !important;
+    grid-template-rows: 56px auto;
+    grid-template-columns: auto minmax(auto, 416px);
+    grid-template-areas:
+      'experienceBar experienceBar'
+      'data challengeBox';
+
+    section {
+      margin: auto 0;
+      min-width: 352px;
+      height: auto !important;
+      // min-height: 528px;
+    }
+
+    .challengeBox {
+      margin: auto 0;
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+      display: flex !important;
+    }
+  }
+}
+
+@media screen and (min-height: 800px) {
+  .container {
+    padding: 2.5rem 1.5rem;
+    gap: 4.5rem;
+
+    section {
+      gap: 2rem;
+
+      .challengeBox {
+        margin: auto 0;
+      }
+    }
+  }
+}
+
+@media screen and (min-height: 620px) {
+  .container {
+    gap: 3.75rem;
   }
 }
