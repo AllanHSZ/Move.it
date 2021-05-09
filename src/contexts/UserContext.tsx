@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { update, findUserById } from "../api/UserApi";
+import { update } from "../api/UserApi";
 
 export interface UserData{
   id?: string,
